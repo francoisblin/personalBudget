@@ -1,21 +1,6 @@
 const envelopesArray = []
 let idEnvelopes = 1
 
-// class Envelope {
-//   constructor (name, budget) {
-//     this._name = name
-//     this._budget = budget
-//   }
-
-//   get name () {
-//     return this._name
-//   }
-
-//   get budget () {
-//     return this._budget
-//   }
-// }
-
 const isValidEnvelope = req => {
   if (!req.name || typeof req.name !== 'string') {
     throw new Error('Envelope Name must be a string')
@@ -43,4 +28,20 @@ const addEnvelope = envelope => {
   }
 }
 
-module.exports = { envelopesArray, addEnvelope }
+const getEnvelopeById = id => {
+  const envelope = envelopesArray.find(el => {
+    return el.id === Number(id)
+  })
+  return envelope
+}
+
+const updateBudget = (current, req) => {
+  if (!isNaN(parseFloat(req.budget)) && isFinite(req.budget)) {
+    req.budget = Number(req.budget)
+  } else {
+    throw new Error('Budget must be a number')
+  }
+  current.budget += req.budget
+  return current
+}
+module.exports = { envelopesArray, addEnvelope, getEnvelopeById, updateBudget }
