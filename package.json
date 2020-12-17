@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --watch index.js"
+    "start": "nodemon --watch index.js",
+    "test": "mocha 'test/apiTest.js'"
   },
   "dependencies": {
     "axios": "^0.21.0",
