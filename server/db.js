@@ -41,7 +41,25 @@ const updateBudget = (current, req) => {
   } else {
     throw new Error('Budget must be a number')
   }
-  current.budget += req.budget
-  return current
+  const envelopeIndexof = envelopesArray.findIndex(el => el.id === Number(current.id))
+  console.log(envelopeIndexof)
+  if (envelopeIndexof !== -1) {
+    current.budget += req.budget
+    return current
+  } else {
+    return null
+  }
 }
-module.exports = { envelopesArray, addEnvelope, getEnvelopeById, updateBudget }
+
+const deleteEnvelope = req => {
+  const envelopeIndexof = envelopesArray.findIndex(el => el.id === Number(req.id))
+  console.log(envelopeIndexof)
+  if (envelopeIndexof !== -1) {
+    envelopesArray.splice(envelopeIndexof, 1)
+    return true
+  } else {
+    return false
+  }
+}
+
+module.exports = { envelopesArray, addEnvelope, getEnvelopeById, updateBudget, deleteEnvelope }

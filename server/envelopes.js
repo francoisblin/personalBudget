@@ -7,7 +7,8 @@ const {
   envelopesArray,
   addEnvelope,
   getEnvelopeById,
-  updateBudget
+  updateBudget,
+  deleteEnvelope
 } = require('./db')
 
 envelopesRouter.param('envelopeId', (req, res, next, id) => {
@@ -36,5 +37,11 @@ envelopesRouter.get('/:envelopeId', (req, res, next) => {
 
 envelopesRouter.post('/:envelopeId', (req, res, next) => {
   const updateEnvelope = updateBudget(req.envelope, req.query)
+  console.log(updateEnvelope)
   res.send(updateEnvelope)
+})
+
+envelopesRouter.delete('/:envelopeId', (req, res, next) => {
+  deleteEnvelope(req.envelope)
+  res.status(204).send()
 })
