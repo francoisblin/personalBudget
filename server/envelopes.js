@@ -1,12 +1,15 @@
 const express = require('express')
 const envelopesRouter = express.Router()
 
+// const transferRouter = require('./transferRouter')
+
 module.exports = envelopesRouter
 
 const {
   envelopesArray,
   addEnvelope,
   getEnvelopeById,
+  transferEnvelope,
   updateBudget,
   deleteEnvelope
 } = require('./db')
@@ -23,6 +26,14 @@ envelopesRouter.param('envelopeId', (req, res, next, id) => {
 
 envelopesRouter.get('/', (req, res, next) => {
   return res.send(envelopesArray)
+})
+
+envelopesRouter.post('/transfer', (req, res, next) => {
+  const to = req.query.to
+  const howMuch = req.query.budgetToTake
+  const from = req.query.from
+  const updatedTransfer = transferEnvelope(from, howMuch, to)
+  return res.status(200).send(updatedTransfer)
 })
 
 envelopesRouter.post('/', (req, res, next) => {

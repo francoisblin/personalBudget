@@ -13,8 +13,6 @@ const isValidEnvelope = req => {
   return true
 }
 
-// const envelopeHolidays = new Envelope('Holidays', 12000)
-// const envelopeCar = new Envelope('Car', 2500)
 const addEnvelope = envelope => {
   if (isValidEnvelope(envelope)) {
     const newEnvelope = {
@@ -35,6 +33,13 @@ const getEnvelopeById = id => {
   return envelope
 }
 
+const getEnvelopeByName = name => {
+  const envelope = envelopesArray.find(el => {
+    return el.name === name
+  })
+  return envelope
+}
+
 const updateBudget = (current, req) => {
   if (!isNaN(parseFloat(req.budget)) && isFinite(req.budget)) {
     req.budget = Number(req.budget)
@@ -42,7 +47,6 @@ const updateBudget = (current, req) => {
     throw new Error('Budget must be a number')
   }
   const envelopeIndexof = envelopesArray.findIndex(el => el.id === Number(current.id))
-  console.log(envelopeIndexof)
   if (envelopeIndexof !== -1) {
     current.budget += req.budget
     return current
@@ -62,4 +66,24 @@ const deleteEnvelope = req => {
   }
 }
 
-module.exports = { envelopesArray, addEnvelope, getEnvelopeById, updateBudget, deleteEnvelope }
+const transferEnvelope = (from, howMuch, to) => {
+  const fromEnvelope = getEnvelopeByName(from)
+  const toEnvelope = getEnvelopeByName(to)
+  if (Number(howMuch) <= fromEnvelope.budget) {
+    fromEnvelope.budget -= Number(howMuch)
+    toEnvelope.budget += Number(howMuch)
+    return [toEnvelope, fromEnvelope]
+  } else {
+    throw new Error(`You can't move more than ${fromEnvelope.budget}`)
+  }
+}
+
+module.exports = {
+  envelopesArray,
+  addEnvelope,
+  getEnvelopeById,
+  updateBudget,
+  deleteEnvelope,
+  getEnvelopeByName,
+  transferEnvelope
+}
