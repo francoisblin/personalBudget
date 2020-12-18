@@ -21,7 +21,7 @@ Get the sources with `git clone https://github.com/francoisblin/personalBudget.g
 
 Then, go inside the api folder: `cd personalBudget`
 
-And install all the npm dependencies: `npm install`
+And install all the npm dependencies: `npm init`
 
 #### Run
 
