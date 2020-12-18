@@ -28,10 +28,10 @@ envelopesRouter.get('/', (req, res, next) => {
   return res.send(envelopesArray)
 })
 
-envelopesRouter.post('/transfer', (req, res, next) => {
-  const to = req.query.to
-  const howMuch = req.query.budgetToTake
-  const from = req.query.from
+envelopesRouter.post('/transfer/:from/:amount/:to', (req, res, next) => {
+  const to = req.params.to
+  const howMuch = req.params.amount
+  const from = req.params.from
   const updatedTransfer = transferEnvelope(from, howMuch, to)
   return res.status(200).send(updatedTransfer)
 })
@@ -48,7 +48,6 @@ envelopesRouter.get('/:envelopeId', (req, res, next) => {
 
 envelopesRouter.post('/:envelopeId', (req, res, next) => {
   const updateEnvelope = updateBudget(req.envelope, req.query)
-  console.log(updateEnvelope)
   res.send(updateEnvelope)
 })
 

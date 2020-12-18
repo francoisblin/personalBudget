@@ -57,7 +57,6 @@ const updateBudget = (current, req) => {
 
 const deleteEnvelope = req => {
   const envelopeIndexof = envelopesArray.findIndex(el => el.id === Number(req.id))
-  console.log(envelopeIndexof)
   if (envelopeIndexof !== -1) {
     envelopesArray.splice(envelopeIndexof, 1)
     return true
