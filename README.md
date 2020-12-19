@@ -25,7 +25,7 @@ And install all the npm dependencies: `npm init`
 
 #### Run
 
-Go to the api folder and run the node.js server: `node start`
+Go to the api folder and run the node.js server: `npm start`
 
 Then you can check api with Postman on `http://localhost:4001`
 
